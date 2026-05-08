@@ -725,6 +725,8 @@ void set_clientwin_size(WClientWin *cwin, int w, int h)
 		
 	limit_size(cwin, &w, &h);
 	frame_clientwin_resize(CWIN_FRAME(cwin), cwin, w, h, TRUE);
+	// printf("--> win size: %d, %d\n", w, h);
+	// fflush(stdout);
 }
 
 

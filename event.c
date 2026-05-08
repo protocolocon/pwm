@@ -295,8 +295,8 @@ static void handle_configure_request(XConfigureRequestEvent *ev)
 		return;
 	}
 	
-	if((ev->value_mask&(CWWidth|CWHeight))!=0)
-		set_clientwin_size(cwin, ev->width, ev->height);
+	// if((ev->value_mask&(CWWidth|CWHeight))!=0)
+	//	set_clientwin_size(cwin, ev->width, ev->height);
 	
 #ifndef CF_NO_WILD_WINDOWS
 	if((ev->value_mask&(CWX|CWY))!=0)

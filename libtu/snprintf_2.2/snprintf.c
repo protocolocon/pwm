@@ -1,6 +1,6 @@
 #include <stdarg.h>
 #define NEED_ASPRINTF
-#define NEED_VASPRINTF
+/*#define NEED_VASPRINTF*/
 /*
  * snprintf.c - a portable implementation of snprintf
  *

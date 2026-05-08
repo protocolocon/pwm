@@ -11,7 +11,7 @@ SUBDIRS=libtu
 LIBS += -L./libtu -ltu -lm $(X11_LIBS) -lX11
 INCLUDES += -I./libtu/include $(X11_INCLUDES)
 DEFINES += -DETCDIR=\"$(ETCDIR)\"
-CFLAGS += $(XOPEN_SOURCE)
+CFLAGS += $(XOPEN_SOURCE) -fPIE
 TO_REALCLEAN += pwm.1x
 TO_CLEAN += $(OBJS)
 

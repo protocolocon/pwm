@@ -163,7 +163,7 @@ static bool parse_key(Tokenizer *tokz, Token *tok, uint *mod_ret, int *keysym_re
 static bool do_kbind(Tokenizer *tokz, int n, Token *toks, uint actx) {
   uint mod = default_mod;
   int keysym = NoSymbol;
-  WFuncBinder binder = {NULL, NULL, ARGTYPE_NONE};
+  WFuncBinder binder = {NULL, {NULL}, ARGTYPE_NONE};
 
   if (!parse_key(tokz, &(toks[1]), &mod, &keysym)) return TRUE;
 
@@ -316,7 +316,7 @@ static bool alloc_entry(WMenuData *mdata) {
 }
 
 static bool opt_menu_entry(Tokenizer *tokz, int n, Token *toks) {
-  WFuncBinder binder = {NULL, NULL, ARGTYPE_NONE};
+  WFuncBinder binder = {NULL, {NULL}, ARGTYPE_NONE};
   char *entryname = TOK_TAKE_STRING_VAL(&(toks[1]));
   WMenuEnt *entry;
 
@@ -704,7 +704,6 @@ static bool opt_winprop_wildmode(Tokenizer *tokz, int n, Token *toks) {
 }
 
 static bool begin_winprop(Tokenizer *tokz, int n, Token *toks) {
-  WWinProp *wrop;
   char *wclass, *winstance;
 
   tmp_winprop = ALLOC(WWinProp);

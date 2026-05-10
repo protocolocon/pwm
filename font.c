@@ -38,8 +38,8 @@ static char *scatn3(const char *p1, int l1, const char *p2, int l2, const char *
   if (p == NULL) {
     warn_err();
   } else {
-    strncat(p, p1, l1);
-    strncat(p, p2, l2);
+    memcpy(p, p1, l1);
+    memcpy(p, p2, l2);
     strncat(p, p3, l3);
   }
   return p;

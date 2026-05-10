@@ -32,9 +32,9 @@ extern void die_obj_v(const char *obj, const char *p, va_list args);
 extern void die_obj_line(const char *obj, int line, const char *p, ...);
 extern void die_obj_line_v(const char *obj, int line, const char *p, va_list args);
 
-extern void die_err();
-extern void die_err_obj(const char *obj);
-extern void die_err_obj_line(const char *obj, int line);
+extern _Noreturn void die_err();
+extern _Noreturn void die_err_obj(const char *obj);
+extern _Noreturn void die_err_obj_line(const char *obj, int line);
 
 
 extern void warn(const char *p, ...);

@@ -40,7 +40,8 @@ X11_DEFINES=
 ## C compiler
 ##
 
-CC=gcc
+# CC=gcc
+CC=clang
 
 # The POSIX_SOURCE, XOPEN_SOURCE and WARN options should not be necessary,
 # they're mainly for development use. So, if they cause trouble (not
@@ -64,10 +65,11 @@ POSIX_SOURCE=-ansi -D_POSIX_SOURCE
 # have unused variables.
 WARN=	-W -Wimplicit -Wreturn-type -Wswitch -Wcomment \
 	-Wtrigraphs -Wformat -Wchar-subscripts \
-	-Wparentheses -Wuninitialized
+	-Wparentheses -Wuninitialized \
+	-Wno-unused-parameter
 #       -pedantic-errors
 
-CFLAGS=-g -O2 $(WARN) $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
+CFLAGS=-g -O3 -Werror $(WARN) $(DEFINES) $(INCLUDES) $(EXTRA_INCLUDES)
 LDFLAGS=-g $(LIBS) $(EXTRA_LIBS)
 
 

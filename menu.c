@@ -497,6 +497,7 @@ void menu_command(WMenu *menu, int cmd) {
 
     case MENU_CMD_RAISEKEEP:
       raise_winobj((WWinObj *)menu);
+      /* fallthrough */
     case MENU_CMD_KEEP:
       keep(menu);
       break;
@@ -630,7 +631,7 @@ static WFuncClass fclass_menu = {
 static WFunction dummy_func = {&fclass_menu, NULL, NULL, 0};
 
 void init_menus() {
-  WFuncBinder binder = {&dummy_func, 0, ARGTYPE_NONE};
+  WFuncBinder binder = {&dummy_func, {0}, ARGTYPE_NONE};
 
   add_binding(ACT_BUTTONPRESS, ACTX_MENU, 0, AnyButton, &binder);
   add_binding(ACT_BUTTONMOTION, ACTX_MENU, 0, AnyButton, &binder);

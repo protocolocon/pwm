@@ -46,7 +46,7 @@ void pointer_change_context(WThing *thing, uint actx) {
 
 void get_pointer_rootpos(int *xret, int *yret) {
   Window root, win;
-  int x, y, wx, wy;
+  int wx, wy;
   uint mask;
 
   XQueryPointer(wglobal.dpy, SCREEN->root, &root, &win, xret, yret, &wx, &wy, &mask);
@@ -102,7 +102,6 @@ static void call_button(WBinding *binding, XButtonEvent *ev, bool nohand) {
 static uint frame_press(WFrame *frame, XButtonEvent *ev, WThing **thing) {
   int cw = CF_CORNER_SIZE, ch = CF_CORNER_SIZE;
   int actx = -1, tabnum = -1;
-  bool ret;
 
   if (ev->window == frame->bar_win) {
     actx = ACTX_TAB;
@@ -225,7 +224,7 @@ void handle_button_press(XButtonEvent *ev) {
 
   if (pressbind == NULL) pressbind = lookup_binding(ACT_BUTTONPRESS, actx, state, button);
 
-end:
+  // end:
   p_dbltmp = thing;
   p_actx = actx;
   p_button = button;
@@ -261,7 +260,6 @@ bool handle_button_release(XButtonEvent *ev) {
 
 void handle_pointer_motion(XMotionEvent *ev) {
   WFuncClass *fclass;
-  WThing *tmp;
   int dx, dy;
 
   if (p_motion == FALSE && motion_in_treshold(ev->x_root, ev->y_root)) return;
@@ -318,7 +316,6 @@ static void drag_tab_end(WFrame *frame, XButtonEvent *ev) {
   Window win;
   WFrame *newframe = NULL;
   WScreen *scr = SCREEN;
-  bool is_new = FALSE;
   int x, y;
 
   if (wglobal.grab_holder == NULL || !WTHING_IS(wglobal.grab_holder, WTHING_CLIENTWIN)) return;
@@ -349,6 +346,7 @@ void drag_handler(WThing *thing, XMotionEvent *ev, int dx, int dy, WFunction *fu
   switch (func->opval) {
     case DRAG_MOVE_STEPPED:
       stepsize = CF_STEP_SIZE;
+      /* fallthrough */
     case DRAG_MOVE:
       if (p_motion == FALSE) change_grab_cursor(CURSOR_MOVE);
 
@@ -361,6 +359,7 @@ void drag_handler(WThing *thing, XMotionEvent *ev, int dx, int dy, WFunction *fu
   switch (func->opval) {
     case DRAG_RESIZE_STEPPED:
       stepsize = CF_STEP_SIZE;
+      /* fallthrough */
     case DRAG_RESIZE:
       if (p_motion == FALSE) change_grab_cursor(CURSOR_RESIZE);
 

@@ -124,7 +124,7 @@ static WWinObj **get_listptr(WWinObj *obj, bool unlink) {
  */
 static void do_raiselower_winobj(WWinObj *obj, bool unlink, int raise) {
   WScreen *screen = SCREEN;
-  Window win, other = None;
+  Window other = None;
   WWinObj **listptr, *tmpobj, *nextobj = NULL;
   int i, mode = Above;
 
@@ -138,8 +138,6 @@ static void do_raiselower_winobj(WWinObj *obj, bool unlink, int raise) {
   }
 
   tmpobj = obj;
-
-  win = lowest_win(obj);
 
   listptr = get_listptr(obj, unlink);
   assert(listptr != NULL);
@@ -268,7 +266,7 @@ void add_winobj_above(WWinObj *obj, WWinObj *stack_above) {
 /* */
 
 static void relink_above(WWinObj *obj, WWinObj **listptr) {
-  WWinObj *p, *next, **listptr2;
+  WWinObj *p, *next;
 
   for (p = obj->stack_above_list; p != NULL; p = next) {
     next = p->stack_next;

@@ -1,7 +1,7 @@
 /*
  * pwm/winprops.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -13,23 +13,19 @@
 #include "common.h"
 #include "winobj.h"
 
-enum{
-	WILDMODE_APP=0,
-	WILDMODE_YES=1,
-	WILDMODE_NO=2
-};
-	
+enum { WILDMODE_APP = 0, WILDMODE_YES = 1, WILDMODE_NO = 2 };
+
 typedef struct _WWinProp {
-	char *data;
-	char *wclass;
-	char *winstance;
-	
-	int init_frame;
-	int init_workspace;	
-	int dockpos;
-	int wildmode;
-	
-	struct _WWinProp *next, *prev;
+  char *data;
+  char *wclass;
+  char *winstance;
+
+  int init_frame;
+  int init_workspace;
+  int dockpos;
+  int wildmode;
+
+  struct _WWinProp *next, *prev;
 } WWinProp;
 
 extern WWinProp *find_winprop(const char *wclass, const char *winstance);

@@ -1,7 +1,7 @@
 /*
  * pwm/config.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -11,7 +11,6 @@
 #define INCLUDED_CONFIG_H
 
 #include "version.h"
-
 
 /* Behaviour-controlling booleans.
  *
@@ -43,16 +42,16 @@
  *
  * CF_FLACCID_PLACEMENT_UDLR
  *  Place windows from top to bottom instead of left to right.
- * 
+ *
  * CF_PACK_MOVE
  *  Enable pack_move function
- * 
+ *
  * CF_GOTODIR
  *  Enable gotodir function
- * 
+ *
  * CF_NO_NUMBERING
  *  Do not number windows with the same name (e.g xterm<2>)
- * 
+ *
  */
 
 /*#define CF_NO_WILD_WINDOWS*/
@@ -67,7 +66,6 @@
 #define CF_PACK_MOVE
 #define CF_GOTODIR
 
-
 /* Don't modify these
  */
 
@@ -79,10 +77,10 @@
 #define ETCDIR "/etc"
 #endif
 
-#define CF_SYS_CONFIG_LOCATION ETCDIR"/pwm/"
-#define CF_GLOBAL_CFGFILE CF_SYS_CONFIG_LOCATION"pwm.conf"
+#define CF_SYS_CONFIG_LOCATION ETCDIR "/pwm/"
+#define CF_GLOBAL_CFGFILE CF_SYS_CONFIG_LOCATION "pwm.conf"
 #define CF_USER_CONFIG_LOCATION ".pwm/"
-#define CF_USER_CFGFILE CF_USER_CONFIG_LOCATION"pwm.conf"
+#define CF_USER_CFGFILE CF_USER_CONFIG_LOCATION "pwm.conf"
 
 #define GRDATA (&(wglobal.grdata))
 #define SCREEN (&(wglobal.screen))
@@ -97,7 +95,6 @@
 #define CF_BAR_MAX_WIDTH_Q (GRDATA->bar_max_width_q)
 #define CF_TAB_MIN_WIDTH (GRDATA->tab_min_width)
 
-
 /* Drawing
  */
 
@@ -105,22 +102,22 @@
 #define CF_TAB_TEXT_MIN_X_PAD 2
 #define CF_TAB_TEXT_MAX_X_PAD 20
 
-#define CF_TAB_TEXT_Y_OFF (CF_BEVEL_WIDTH+CF_TAB_TEXT_Y_PAD)
+#define CF_TAB_TEXT_Y_OFF (CF_BEVEL_WIDTH + CF_TAB_TEXT_Y_PAD)
 
-#define CF_TAB_MIN_TEXT_X_OFF (CF_BEVEL_WIDTH+CF_TAB_TEXT_MIN_X_PAD)
-#define CF_TAB_MAX_TEXT_X_OFF (CF_BEVEL_WIDTH+CF_TAB_TEXT_MAX_X_PAD)
+#define CF_TAB_MIN_TEXT_X_OFF (CF_BEVEL_WIDTH + CF_TAB_TEXT_MIN_X_PAD)
+#define CF_TAB_MAX_TEXT_X_OFF (CF_BEVEL_WIDTH + CF_TAB_TEXT_MAX_X_PAD)
 
 #define CF_MENUTITLE_H_PAD 3
 #define CF_MENUENT_H_PAD 3
 #define CF_MENUTITLE_V_PAD CF_TAB_TEXT_Y_PAD
 #define CF_MENUENT_V_PAD 3
 
-#define CF_MENUTITLE_H_SPACE (CF_MENUTITLE_H_PAD+CF_BEVEL_WIDTH)
-#define CF_MENUENT_H_SPACE (CF_MENUENT_H_PAD+CF_BEVEL_WIDTH)
-#define CF_MENUTITLE_V_SPACE (CF_MENUTITLE_V_PAD+CF_BEVEL_WIDTH)
+#define CF_MENUTITLE_H_SPACE (CF_MENUTITLE_H_PAD + CF_BEVEL_WIDTH)
+#define CF_MENUENT_H_SPACE (CF_MENUENT_H_PAD + CF_BEVEL_WIDTH)
+#define CF_MENUTITLE_V_SPACE (CF_MENUTITLE_V_PAD + CF_BEVEL_WIDTH)
 #define CF_MENUENT_V_SPACE CF_MENUENT_V_PAD
 #define CF_MENU_V_SPACE CF_BEVEL_WIDTH
-#define CF_SUBMENU_IND_H_SPACE	3
+#define CF_SUBMENU_IND_H_SPACE 3
 
 #define CF_WANT_TRANSPARENT_TERMS
 
@@ -137,8 +134,7 @@
 #define CF_DRAG_TRESHOLD 2
 #define CF_EDGE_RESISTANCE 16
 #define CF_STEP_SIZE 16
-#define CF_CORNER_SIZE (16+8)
-
+#define CF_CORNER_SIZE (16 + 8)
 
 /* Cursors
  */
@@ -148,14 +144,12 @@
 #define CF_CURSOR_MOVE XC_fleur
 #define CF_CURSOR_DRAG XC_cross
 
-
 /* Defaults
  */
 
 #define CF_DBLCLICK_DELAY 250
-#define CF_DEFAULT_N_WORKSPACES	6
+#define CF_DEFAULT_N_WORKSPACES 6
 #define CF_FALLBACK_FONT_NAME "fixed"
-
 
 /* Menu scrolling
  */

@@ -1,7 +1,7 @@
 /*
  * pwm/winobj.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -13,7 +13,6 @@
 #include "common.h"
 #include "thing.h"
 
-
 #define WWINOBJ_MAPPED 0x100000
 #define WWINOBJ_HIDDEN 0x200000
 
@@ -21,47 +20,40 @@
 #define WORKSPACE_CURRENT -1
 #define WORKSPACE_UNKNOWN -1
 
-#define WWINOBJ_IS_MAPPED(F) ((F)->flags&WWINOBJ_MAPPED)
-#define WWINOBJ_IS_HIDDEN(F) ((F)->flags&WWINOBJ_HIDDEN)
-#define WWINOBJ_IS_STICKY(F) ((F)->workspace==WORKSPACE_STICKY)
+#define WWINOBJ_IS_MAPPED(F) ((F)->flags & WWINOBJ_MAPPED)
+#define WWINOBJ_IS_HIDDEN(F) ((F)->flags & WWINOBJ_HIDDEN)
+#define WWINOBJ_IS_STICKY(F) ((F)->workspace == WORKSPACE_STICKY)
 
-
-enum{
-	LVL_KEEP_ON_BOTTOM=0,
-	LVL_NORMAL=1,
-	LVL_KEEP_ON_TOP=2,
-	LVL_MENU=3,
-	N_STACK_LVLS=4,
-	LVL_OTHER=-1 /* used for transients and submenus that are stacked
-				  * above their "parents" 
-				  */
+enum {
+  LVL_KEEP_ON_BOTTOM = 0,
+  LVL_NORMAL = 1,
+  LVL_KEEP_ON_TOP = 2,
+  LVL_MENU = 3,
+  N_STACK_LVLS = 4,
+  LVL_OTHER = -1 /* used for transients and submenus that are stacked
+                  * above their "parents"
+                  */
 };
 
+/* */
+
+#define INHERIT_WWINOBJ                     \
+  INHERIT_WTHING;                           \
+                                            \
+  int stack_lvl;                            \
+  struct _WWinObj *stack_prev, *stack_next; \
+  struct _WWinObj *stack_above;             \
+  struct _WWinObj *stack_above_list;        \
+  int workspace;                            \
+  int x, y, w, h
 
 /* */
 
-
-#define INHERIT_WWINOBJ                         \
-	INHERIT_WTHING;                             \
-                                                \
-	int stack_lvl;                              \
-	struct _WWinObj *stack_prev, *stack_next;   \
-	struct _WWinObj *stack_above;               \
-	struct _WWinObj *stack_above_list;          \
-	int workspace;                              \
-	int x, y, w, h
-
-
-/* */
-
-
-typedef struct _WWinObj{
-	INHERIT_WWINOBJ;
+typedef struct _WWinObj {
+  INHERIT_WWINOBJ;
 } WWinObj;
 
-
 /* */
-
 
 extern void add_winobj(WWinObj *obj, int ws, int init_stack_lvl);
 extern void add_winobj_above(WWinObj *obj, WWinObj *above);
@@ -88,4 +80,3 @@ extern void set_winobj_pos(WWinObj *obj, int x, int y);
 extern bool winobj_is_visible(WWinObj *obj);
 
 #endif /* INCLUDED_WINOBJ_H */
-

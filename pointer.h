@@ -1,7 +1,7 @@
 /*
  * pwm/pointer.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -10,30 +10,16 @@
 #ifndef INCLUDED_POINTER_H
 #define INCLUDED_POINTER_H
 
-#include "common.h"
 #include "clientwin.h"
+#include "common.h"
 #include "function.h"
 #include "menu.h"
 
+enum { DRAG_MOVE, DRAG_RESIZE, DRAG_MOVE_STEPPED, DRAG_RESIZE_STEPPED, DRAG_TAB };
 
-enum{
-	DRAG_MOVE,
-	DRAG_RESIZE,
-	DRAG_MOVE_STEPPED,
-	DRAG_RESIZE_STEPPED,
-	DRAG_TAB
-};
-
-
-enum{
-	POINTER_NORMAL,
-	POINTER_MENU,
-	POINTER_MENU_MOVE
-};
-
+enum { POINTER_NORMAL, POINTER_MENU, POINTER_MENU_MOVE };
 
 /* */
-
 
 extern void handle_button_press(XButtonEvent *ev);
 extern bool handle_button_release(XButtonEvent *ev);

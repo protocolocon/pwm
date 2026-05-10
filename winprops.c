@@ -1,99 +1,84 @@
 /*
  * pwm/winprops.c
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
+#include "winprops.h"
+
 #include <string.h>
 
 #include "common.h"
 #include "property.h"
-#include "winprops.h"
 
+static WWinProp *winprop_list = NULL;
 
-static WWinProp *winprop_list=NULL;
+WWinProp *find_winprop(const char *wclass, const char *winstance) {
+  WWinProp *prop = winprop_list, *loosematch = NULL;
+  int match, bestmatch = 0;
 
+  /* I assume there will not be that many winprops, so a naive algorithm
+   * and data structure should do. (linear search, linked list)
+   */
 
-WWinProp *find_winprop(const char *wclass, const char *winstance)
-{
-	WWinProp *prop=winprop_list, *loosematch=NULL;
-	int match, bestmatch=0;
-	
-	/* I assume there will not be that many winprops, so a naive algorithm
-	 * and data structure should do. (linear search, linked list)
-	 */
-	
-	for(; prop!=NULL; prop=prop->next){
-		match=0;
-		
-		/* *.* -> 2
-		 * *.bar -> 3
-		 * foo.* -> 4
-		 * foo.bar -> 5
-		 */
-		
-		if(prop->wclass==NULL)
-			match+=1;
-		else if(wclass!=NULL && strcmp(prop->wclass, wclass)==0)
-			match+=3;
-		else
-			continue;
+  for (; prop != NULL; prop = prop->next) {
+    match = 0;
 
-		if(prop->winstance==NULL)
-			match+=1;
-		else if(winstance!=NULL && strcmp(prop->winstance, winstance)==0)
-			match+=2;
-		else
-			continue;
+    /* *.* -> 2
+     * *.bar -> 3
+     * foo.* -> 4
+     * foo.bar -> 5
+     */
 
-		/* exact match? */
-		if(match==5)
-			return prop;
-		
-		if(match>bestmatch){
-			bestmatch=match;
-			loosematch=prop;
-		}
-	}
-	
-	return loosematch;
+    if (prop->wclass == NULL)
+      match += 1;
+    else if (wclass != NULL && strcmp(prop->wclass, wclass) == 0)
+      match += 3;
+    else
+      continue;
+
+    if (prop->winstance == NULL)
+      match += 1;
+    else if (winstance != NULL && strcmp(prop->winstance, winstance) == 0)
+      match += 2;
+    else
+      continue;
+
+    /* exact match? */
+    if (match == 5) return prop;
+
+    if (match > bestmatch) {
+      bestmatch = match;
+      loosematch = prop;
+    }
+  }
+
+  return loosematch;
 }
 
+WWinProp *find_winprop_win(Window win) {
+  char *winstance, *wclass = NULL;
+  int n, tmp;
 
-WWinProp *find_winprop_win(Window win)
-{
-	char *winstance, *wclass=NULL;
-	int n, tmp;
-	
-	winstance=get_string_property(win, XA_WM_CLASS, &n);
-	
-	if(winstance==NULL)
-		return NULL;
-	
-	tmp=strlen(winstance);
-	if(tmp+1<n)
-		wclass=winstance+tmp+1;
+  winstance = get_string_property(win, XA_WM_CLASS, &n);
 
-	return find_winprop(wclass, winstance);
+  if (winstance == NULL) return NULL;
+
+  tmp = strlen(winstance);
+  if (tmp + 1 < n) wclass = winstance + tmp + 1;
+
+  return find_winprop(wclass, winstance);
 }
 
+void free_winprop(WWinProp *winprop) {
+  if (winprop->prev != NULL) {
+    UNLINK_ITEM(winprop_list, winprop, next, prev);
+  }
 
-void free_winprop(WWinProp *winprop)
-{	
-	if(winprop->prev!=NULL){
-		UNLINK_ITEM(winprop_list, winprop, next, prev);
-	}
-	
-	if(winprop->data!=NULL)
-		free(winprop->data);
+  if (winprop->data != NULL) free(winprop->data);
 }
 
-
-void register_winprop(WWinProp *winprop)
-{
-	LINK_ITEM(winprop_list, winprop, next, prev);
-}
-
+void register_winprop(WWinProp *winprop) { LINK_ITEM(winprop_list, winprop, next, prev); }

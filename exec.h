@@ -1,7 +1,7 @@
 /*
  * pwm/exec.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -16,7 +16,7 @@ extern void wm_exec(const char *cmd);
 extern void wm_restart_other(const char *cmd);
 extern void wm_restart();
 extern void wm_exit();
-extern void wm_exitret();
+extern void wm_exitret(int retval);
 extern void setup_environ(int scr);
 
 #endif /* INCLUDED_EXEC_H */

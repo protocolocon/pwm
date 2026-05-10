@@ -1,7 +1,7 @@
 /*
  * pwm/dock.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -13,21 +13,21 @@
 #include "common.h"
 #include "winobj.h"
 
-#define DOCK_HORIZONTAL	0x0001
-#define DOCK_RIGHT 		0x0002
-#define DOCK_BOTTOM		0x0004
-#define DOCK_SLIDING	0x0008
+#define DOCK_HORIZONTAL 0x0001
+#define DOCK_RIGHT 0x0002
+#define DOCK_BOTTOM 0x0004
+#define DOCK_SLIDING 0x0008
 
 struct _WClientWin;
 
-typedef struct _WDock{
-	INHERIT_WWINOBJ;
-	
-	Window win;
-	
-	int dockwin_count;
-	int max_vis_dockwin;
-	int dock_w, dock_h;
+typedef struct _WDock {
+  INHERIT_WWINOBJ;
+
+  Window win;
+
+  int dockwin_count;
+  int max_vis_dockwin;
+  int dock_w, dock_h;
 } WDock;
 
 extern void set_dock_params(const char *geom, const uint flags);

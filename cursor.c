@@ -1,45 +1,32 @@
 /*
  * pwm/cursor.c
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
-#include "common.h"
-#include "event.h"
 #include "cursor.h"
 
+#include "common.h"
+#include "event.h"
 
 static Cursor cursors[N_CURSORS];
 
-#define LCURS(TYPE) \
-	cursors[CURSOR_##TYPE]=XCreateFontCursor(wglobal.dpy, CF_CURSOR_##TYPE)
+#define LCURS(TYPE) cursors[CURSOR_##TYPE] = XCreateFontCursor(wglobal.dpy, CF_CURSOR_##TYPE)
 
-void load_cursors()
-{
-	LCURS(DEFAULT);
-	LCURS(RESIZE);
-	LCURS(MOVE);
-	LCURS(DRAG);
+void load_cursors() {
+  LCURS(DEFAULT);
+  LCURS(RESIZE);
+  LCURS(MOVE);
+  LCURS(DRAG);
 }
 
-
-void change_grab_cursor(int cursor)
-{
-	XChangeActivePointerGrab(wglobal.dpy, GRAB_POINTER_MASK,
-							 cursors[cursor], CurrentTime);
+void change_grab_cursor(int cursor) {
+  XChangeActivePointerGrab(wglobal.dpy, GRAB_POINTER_MASK, cursors[cursor], CurrentTime);
 }
 
+void set_cursor(Window win, int cursor) { XDefineCursor(wglobal.dpy, win, cursors[cursor]); }
 
-void set_cursor(Window win, int cursor)
-{
-	XDefineCursor(wglobal.dpy, win, cursors[cursor]);
-}
-
-
-Cursor x_cursor(int cursor)
-{
-	return cursors[cursor];
-}
+Cursor x_cursor(int cursor) { return cursors[cursor]; }

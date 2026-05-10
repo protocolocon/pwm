@@ -1,7 +1,7 @@
 /*
  * pwm/thing.h
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2001.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -12,40 +12,37 @@
 
 #include "common.h"
 
-#define WTHING_UNKNOWN		0x0000
-#define	WTHING_SCREEN		0x0100
-#define WTHING_WORKSPACE	0x0200
+#define WTHING_UNKNOWN 0x0000
+#define WTHING_SCREEN 0x0100
+#define WTHING_WORKSPACE 0x0200
 
-#define	WTHING_CLIENTWIN	0x0400
-#define WTHING_DOCKWIN		0x0420
+#define WTHING_CLIENTWIN 0x0400
+#define WTHING_DOCKWIN 0x0420
 
-#define	WTHING_WINOBJ		0x0800
-#define	WTHING_FRAME		0x0810
-#define WTHING_MENU			0x0820
-#define WTHING_DOCK			0x0840
+#define WTHING_WINOBJ 0x0800
+#define WTHING_FRAME 0x0810
+#define WTHING_MENU 0x0820
+#define WTHING_DOCK 0x0840
 
-#define WTHING_IS(THING, TYPE) (((THING)->type&(TYPE))==(TYPE))
+#define WTHING_IS(THING, TYPE) (((THING)->type & (TYPE)) == (TYPE))
 
-#define WTHING_SUBDEST		0x10000
-#define WTHING_UNFOCUSABLE 	0x20000
-#define WTHING_IS_UNFOCUSABLE(F) ((F)->flags&WTHING_UNFOCUSABLE)
+#define WTHING_SUBDEST 0x10000
+#define WTHING_UNFOCUSABLE 0x20000
+#define WTHING_IS_UNFOCUSABLE(F) ((F)->flags & WTHING_UNFOCUSABLE)
 
+#define INHERIT_WTHING                   \
+  int type, flags;                       \
+  struct _WThing *t_parent, *t_children; \
+  struct _WThing *t_next, *t_prev
 
-#define INHERIT_WTHING                     \
-	int type, flags;                       \
-	struct _WThing *t_parent, *t_children; \
- 	struct _WThing *t_next, *t_prev
+#define WTHING_INIT(OBJ, TYPE) \
+  (OBJ)->type = (TYPE);        \
+  (OBJ)->flags = 0;            \
+  (OBJ)->t_parent = (OBJ)->t_children = (OBJ)->t_next = (OBJ)->t_prev = NULL
 
-#define WTHING_INIT(OBJ, TYPE)         \
-	(OBJ)->type=(TYPE);                \
-	(OBJ)->flags=0;                    \
-	(OBJ)->t_parent=(OBJ)->t_children= \
-	(OBJ)->t_next=(OBJ)->t_prev=NULL
-
-typedef struct _WThing{
-	INHERIT_WTHING;
+typedef struct _WThing {
+  INHERIT_WTHING;
 } WThing;
-
 
 extern void link_thing(WThing *parent, WThing *child);
 extern void link_thing_before(WThing *before, WThing *child);

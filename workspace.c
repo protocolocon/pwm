@@ -10,6 +10,7 @@
 #include "workspace.h"
 
 #include <X11/Xmd.h>
+#include <stdlib.h>
 
 #include "common.h"
 #include "focus.h"
@@ -17,6 +18,8 @@
 #include "property.h"
 #include "screen.h"
 #include "winlist.h"
+
+#define COMMAND_MAX_SIZE 1024
 
 bool visible_workspace(int ws) {
   return (ws == SCREEN->current_workspace || ws == WORKSPACE_STICKY || ws == WORKSPACE_CURRENT);
@@ -58,8 +61,13 @@ void dodo_switch_workspace(int num) {
     else if (obj->workspace == old)
       do_unmap_winobj(obj);
   }
-
   set_integer_property(scr->root, wglobal.atom_workspace_num, scr->current_workspace);
+
+  // Run a script providing the workspace, so that ad-hoc policies can be implented.
+  // Yes, sudo, yes, system(), questions?
+  char command[COMMAND_MAX_SIZE];
+  snprintf(command, sizeof(command), "sudo /usr/bin/@pwm_on_workspace %d %d", num, old);
+  system(command);
 }
 
 void do_switch_workspace(int num) {
